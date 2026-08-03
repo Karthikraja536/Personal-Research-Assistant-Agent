@@ -122,18 +122,6 @@ python agent.py
 ```
 This executes a sample query and prints the full tool-call trace and final answer to the terminal.
 
-## Roadmap
-
-- [ ] Additional tools (Wikipedia lookup, calculator) — pattern is `@tool`-decorate a function and add it to `TOOLS`
-- [ ] PDF upload support, so the agent can research user-supplied documents alongside the live web
-- [ ] Conversation memory via a LangGraph checkpointer, to support follow-up questions
-- [ ] Structured, machine-readable citations (`{answer, sources: [...]}`) instead of free-text references
-
-
-## License
-
-MIT — see `LICENSE`. (Add a `LICENSE` file with the standard MIT text if one isn't present yet.)
-
 ## Author
 
 **Karthikraja V**
