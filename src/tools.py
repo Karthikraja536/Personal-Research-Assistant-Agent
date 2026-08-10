@@ -18,7 +18,7 @@ from ddgs import DDGS
 import arxiv
 
 
-def web_search(query: str, max_results: int = 5) -> str:
+def web_search(query: str, max_results: int = 8) -> str:
     """Search the live web via DuckDuckGo. No API key required."""
     try:
         with DDGS() as ddgs:
@@ -37,7 +37,7 @@ def web_search(query: str, max_results: int = 5) -> str:
         return f"web_search failed: {e}"
 
 
-def arxiv_search(query: str, max_results: int = 3) -> str:
+def arxiv_search(query: str, max_results: int = 5) -> str:
     """Search arXiv.org for academic papers. No API key required."""
     try:
         client = arxiv.Client()
