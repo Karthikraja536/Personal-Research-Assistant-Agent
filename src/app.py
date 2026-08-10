@@ -10,7 +10,6 @@ never shown or entered in the UI. Run with:  streamlit run app.py
 
 import json
 import os
-import re
 
 import streamlit as st
 from dotenv import load_dotenv
@@ -71,30 +70,7 @@ if run_clicked and query:
 
         if answer:
             st.subheader("Answer")
-            # Backstop: the system prompt tells the model not to use raw
-            # HTML, but LLMs don't follow instructions 100% of the time
-            # -- strip any <br> that slips through so it never shows up
-            # as literal text in the UI, regardless of what the model did.
-            clean_answer = re.sub(r"<br\s*/?>", "\n", answer, flags=re.IGNORECASE)
-
-            # Backstop: strip any stray bracket-style citation markers
-            # (e.g. "【1†L1-L4】") that occasionally leak through despite the
-            # system prompt banning them. These are a hallucinated citation
-            # style with no connection to the tool results -- not real links,
-            # just clutter -- so remove them rather than display them.
-            clean_answer = re.sub(r"【[^】]*】", "", clean_answer)
-
-            # The system prompt asks the model for a "### Sources" section.
-            # Render it as its own visually separated block instead of
-            # letting it blend into the rest of the prose.
-            parts = re.split(
-                r"\n#{2,3}\s*Sources\s*\n", clean_answer, maxsplit=1, flags=re.IGNORECASE
-            )
-            st.markdown(parts[0].strip())
-            if len(parts) == 2 and parts[1].strip():
-                st.markdown("#### 📚 Sources")
-                with st.container(border=True):
-                    st.markdown(parts[1].strip())
+            st.markdown(answer)
 
             if trace:
                 with st.expander(f"🧠 See the agent's reasoning ({len(trace)} tool call(s))"):
